@@ -1,0 +1,34 @@
+/*
+    Thread Synchronization with Mutexes Example
+    Author: Jofel Batutay (Bonezegei)
+    Date: August 31, 2026
+*/
+
+include("lib/async.bzg");
+
+var a = async();
+
+// Create a mutex lock handle
+var lock_id = a.mutex();
+var counter = 0;
+
+// Worker task 1
+a.run(function(id) {
+    a.lock(lock_id);
+    print("Worker " + id + " entering critical section.");
+    counter = counter + 1;
+    print("Counter updated to: " + counter);
+    a.unlock(lock_id);
+}, 1);
+
+// Worker task 2 running simultaneously
+a.run(function(id) {
+    a.lock(lock_id);
+    print("Worker " + id + " entering critical section.");
+    counter = counter + 1;
+    print("Counter updated to: " + counter);
+    a.unlock(lock_id);
+}, 2);
+
+// Keep the main thread alive to allow tasks to finish
+delay(2000);

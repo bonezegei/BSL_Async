@@ -1,0 +1,36 @@
+/*
+    Parallel Batch Processing Example
+    Author: Jofel Batutay (Bonezegei)
+    Date: August 31, 2026
+*/
+
+include("lib/async.bzg");
+
+var a = async();
+
+var lock_id = a.mutex();
+var completed_count = 0;
+var total_jobs = 3;
+
+function dispatchJob(job_id, delay_ms) {
+    a.sleep(delay_ms, function(id) {
+        // Critical section to update shared stats
+        a.lock(lock_id);
+        completed_count = completed_count + 1;
+        print("Job #" + id + " completed! Progress: " + completed_count + "/" + total_jobs);
+        
+        if (completed_count == total_jobs) {
+            print("All parallel jobs have finished executing.");
+        }
+        a.unlock(lock_id);
+    }, job_id);
+}
+
+// Dispatch 3 concurrent background jobs with different delay durations
+print("Dispatching parallel jobs...");
+dispatchJob(101, 800);  // Finishes 1st
+dispatchJob(102, 1200); // Finishes 2nd
+dispatchJob(103, 1500); // Finishes 3rd
+
+// Keep the main thread alive to watch all jobs finish
+delay(5000);

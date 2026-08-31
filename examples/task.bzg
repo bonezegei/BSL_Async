@@ -1,0 +1,25 @@
+/*
+    Async Tasks and Non-blocking Timers Example
+    Author: Jofel Batutay (Bonezegei)
+    Date: August 31, 2026
+*/
+
+// include the library after Installation (" bzg install async ")
+include("lib/async.bzg");
+
+var a = async();
+
+// 1. Run a task in the background concurrently
+a.run(function(data) {
+    print("Background worker received: " + data);
+}, "Task Payload 1");
+
+// 2. Non-blocking delay (sleep for 2000 milliseconds before calling callback)
+a.sleep(2000, function(msg) {
+    print("Timer finished: " + msg);
+}, "Delayed 2 Second");
+
+print("Main script continues executing without blocking!");
+
+// Keep the main thread alive to allow background tasks to complete
+delay(5000);
