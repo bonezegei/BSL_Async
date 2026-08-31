@@ -171,10 +171,10 @@ delay(5000);
 * **Website:** [bonezegei.com](https://bonezegei.com)
 
 ## Citation 
-[![DOI](https://zenodo.org/badge/.svg)](https://doi.org/)
+[![DOI](https://zenodo.org/badge/1352175674.svg)](https://doi.org/10.5281/zenodo.22204326)
 
 If you use this library, please cite it as below:
 
 **APA Format:**
 
-Batutay, J. (2026). *bonezegei/BSL_Async* [Computer software]. https://doi.org/
+Batutay, J. (2026). *bonezegei/BSL_Async* [Computer software]. https://doi.org/10.5281/zenodo.22204326
